@@ -19,7 +19,32 @@ export const Forms = ({sortedData}:any) => {
         
       }: any = useFormikContext();
     useEffect(()=> {
-        dispatcher(setServices({...services, ...values}))
+        let json : any = []
+        let json_copy : any = []
+        services?.services_json?.map((item:any)=> {
+            if(item.service_id.id === values.id){
+                json.push(item.json)
+            }
+        })
+        console.log("JSON HERE", json)
+        json[0]?.map((item:any, idx:number)=> {
+            // const filteredJson = item[idx].json.ser
+            const obj = {... item}
+           
+           
+            const keys = Object.keys(values)
+            keys.map((item, idx)=>{
+                if(parseInt(item?.split("_")[1]) === obj.id) {
+                    const value = Object.values(values) 
+                    obj.value = value[idx]
+                    json_copy.push(obj)
+                }
+            })
+        })
+
+     console.log("JSON COPY",json_copy)
+      
+        dispatcher(setServices({...services}))
     },[values])
     return <ScrollArea style={{ minHeight: "100vh" }}>
     {sortedData?.map((item:IJson, idx:number)=> {

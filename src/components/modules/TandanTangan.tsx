@@ -19,7 +19,7 @@ export const TandaTangan = ({data}:any) => {
             return -1
         }
     })
-    const filteredFormik = sortedData?.reduce((a:any, v:any) => ({...a, ["form_"+v.id] : (v.value === "" && [])}), {})
+    const filteredFormik = sortedData?.reduce((a:any, v:any) => ({...a, ["form_"+v.id] : v.value}), {id: 2})
     const initialValues = filteredFormik
     const schema = sortedData?.map((item:any, idx:number)=> {
         if((item?.type === "photo" || item?.type === "video")){
